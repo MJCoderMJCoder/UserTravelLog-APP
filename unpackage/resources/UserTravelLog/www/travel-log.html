@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/mui.indexedlist.css" />
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}
+			.mui-indexed-list-bar{
+				display: none;
+			}
+			.mui-table-view-cell.mui-media{
+				width: 100%;
+				padding:0; 
+				margin: 0;
+			}
+			.mui-table-view-cell.mui-media a{
+				margin-top: 5px;
+			}
+			.mui-card-footer, .mui-card-footer .mui-card-link {
+				padding: 0;
+				margin: 0;
+			}
+			.mui-card-footer .mui-card-link {
+				width: 100%;
+				justify-content: center;
+			}
+			.mui-table-view:after, .mui-table-view:before,  .mui-table-view-cell:after,  .mui-table-view-cell:before{
+				height: 0;
+			}
+			
+			.mui-popover .mui-table-view-cell a, .mui-popover .mui-table-view-cell span{
+				font-size: 14px;
+			}
+			
+			.mui-popover .mui-table-view-cell{
+				padding-top: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id='list' class="mui-indexed-list">
+				<div class="mui-indexed-list-search mui-input-row mui-search">
+					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索">
+				</div>
+				<div class="mui-indexed-list-bar">
+					<a>A</a>
+					<a>B</a>
+					<a>C</a>
+					<a>D</a>
+					<a>E</a>
+					<a>F</a>
+					<a>G</a>
+					<a>H</a>
+					<a>I</a>
+					<a>J</a>
+					<a>K</a>
+					<a>L</a>
+					<a>M</a>
+					<a>N</a>
+					<a>O</a>
+					<a>P</a>
+					<a>Q</a>
+					<a>R</a>
+					<a>S</a>
+					<a>T</a>
+					<a>U</a>
+					<a>V</a>
+					<a>W</a>
+					<a>X</a>
+					<a>Y</a>
+					<a>Z</a>
+				</div>
+				<div class="mui-indexed-list-alert"></div>
+				<div class="mui-indexed-list-inner" id="listContent">
+					<div class="mui-indexed-list-empty-alert">没有数据</div>
+					<ul class="mui-table-view" id="ulTag">
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<div class="mui-card">
+									<div class="mui-card-header mui-card-media">
+										<img src="images/logo.png" />
+										<div class="mui-media-body">
+											小M
+											<p>发表于 2016-06-30 15:30</p>
+										</div>
+									</div>
+									<div class="mui-card-content">
+										<img src="images/zff.jpg" alt="" width="100%" />
+										<div class="mui-card-content-inner">
+											<!-- <p>Posted on January 18, 2016</p> -->
+											<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+										</div>
+									</div>
+									<div class="mui-card-footer">
+										<a class="mui-card-link">关注</a>
+										<a class="mui-card-link">赞（0）</a>
+										<a class="mui-card-link" href="#">评论（0）</a>
+									</div>
+									<div class="mui-collapse-content">
+										<div>
+											<div class="mui-card-header mui-card-media">
+												<img src="images/logo.png" />
+												<div class="mui-media-body">
+													<div class="mui-row">
+														<span class="mui-col-sm-6 mui-col-xs-6" style="color: #0062CC;">小M</span>
+														<span class="mui-col-sm-6 mui-col-xs-6" style="color:lightgray; text-align:right;">2016-06-30
+															15:30</span>
+													</div>
+													<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+												</div>
+											</div>
+										</div>
+										<form class="mui-input-group" style="margin: 5px;">
+											<div class="mui-input-row">
+												<button type="button" class="mui-btn mui-btn-primary mui-col-sm-3 mui-col-xs-3" style="padding: 10px;">发表</button>
+												<input type="text" class="mui-col-sm-9 mui-col-xs-9" placeholder="发表你的评论" style="padding-left: 5px; padding-right: 20px;">
+											</div>
+										</form>
+									</div>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="popover" class="mui-popover">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="mui-card-header mui-card-media">
+						<img src="images/logo.png" alt="" id="headInfo" />
+						<div class="mui-media-body" id="nameInfo" style="text-align:right;">
+							小M
+							<p>发表于 2016-06-30 15:30</p>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<a>QQ号：<span class="mui-pull-right" id="qqInfo">88888888</span></a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a>手机号：<span class="mui-pull-right" id="phoneInfo">18601234567</span></a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a>邮箱：<span class="mui-pull-right" id="emailInfo">hbuilder@dcloud.io</span></a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a>关键联系人：<span class="mui-pull-right" id="confidanteInfo">18334706003</span></a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.indexedlist.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		const urlPre = "http://192.168.17.251:8080/UserTravelLog/";
+		mui.init({
+			swipeBack: false, //关闭右滑关闭功能
+			//监听Android手机的back、menu按键
+			keyEventBind: {
+				backbutton: false, //Boolean(默认true)关闭back按键监听
+			}
+		});
+
+		function formatTime(time) {
+			var date = new Date(time);
+			var m = (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()); // 在小于10的数字前加一个‘0’
+			var s = (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()); // 在小于10的数字前加一个‘0’
+			var formatTime = date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日  " + date.getHours() +
+				":" + m + ":" + s;
+			return formatTime;
+		}
+
+		function getTravelLogs(searchfieldObj) {
+			plus.nativeUI.showWaiting();
+			setTimeout(function() {
+				var network = true;
+				if (mui.os.plus) {
+					mui.plusReady(function() {
+						if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+							network = false;
+						}
+					});
+				}
+				if (network) {
+					mui.ajax(urlPre + 'travelLog/dimSelect', {
+						data: searchfieldObj,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if (data.success) {
+								var travelLogs = data.data;
+								var result = "";
+								for (var i = 0; i < travelLogs.length; i++) {
+									var temp = travelLogs[i];
+									result +=
+										"<li class='mui-table-view-cell mui-media'> <a href = 'javascript:;'><div class = 'mui-card'><div class='mui-card-header mui-card-media'><img src='" +
+										(urlPre + temp.user.userPortrait) + "' onerror=src='images/zff.jpg' id='" +
+										temp.travelLogId + temp.user.userPortrait + "' onclick='userInfoPopover(" + JSON.stringify(temp) +
+										")'/><div class = 'mui-media-body'>" +
+										temp.user.userName + "<p>发表于" + formatTime(temp.travelLogTime) +
+										"</p></div></div><div class = 'mui-card-content'><img src = '" +
+										urlPre + temp.travelLogImg +
+										"' onerror=src='images/zff.jpg' alt='' width = '100%' /><div class = 'mui-card-content-inner'><p style = 'color: #333;'>" +
+										temp.travelLogTxt +
+										"</p> </div> </div> <div class = 'mui-card-footer'><a class = 'mui-card-link'  onclick='attentionToggle(" +
+										temp.travelLogId + ", " + temp.user.userId + ")' id='" + temp.travelLogId + "Attention'>" + isAttention(
+											temp.user.userId) +
+										"</a><a class = 'mui-card-link' onclick='travelLogPraise(" +
+										temp.travelLogId + ")' id='" + temp.travelLogId + "Praise'> 赞（" +
+										temp.travelLogPraise +
+										"）</a><a class = 'mui-card-link' id='" + temp.travelLogId + "Comment'> 评论（" + temp.comments.length +
+										"） </a></div><div class = 'mui-collapse-content'> <div  id = '" + temp.travelLogId + "Comments'>";
+									for (var j = 0; j < temp.comments.length; j++) {
+										result +=
+											"<div class = 'mui-card-header mui-card-media'><img  onerror=src='images/zff.jpg' src = '" +
+											urlPre + temp.comments[j].user.userPortrait +
+											"' id='" +
+											temp.comments[j].commentId + temp.comments[j].user.userPortrait + "' onclick='userInfoPopover(" + JSON.stringify(
+												temp.comments[j]) +
+											")'/><div class = 'mui-media-body'><div class = 'mui-row'><span class = 'mui-col-sm-6 mui-col-xs-6' style = 'color: #0062CC;'>" +
+											temp.comments[j].user.userName +
+											"</span> <span class = 'mui-col-sm-6 mui-col-xs-6' style = 'color:lightgray; text-align:right;'>" +
+											formatTime(temp.comments[j].commentsTime) +
+											"</span></div><p style = 'color: #333;' >" + temp.comments[j].commentTxt + "</p></div></div>";
+									}
+									result +=
+										"</div><form class = 'mui-input-group' style = 'margin: 5px;'><div class = 'mui-input-row' ><button type = 'button' class = 'mui-btn mui-btn-primary mui-col-sm-3 mui-col-xs-3' style = 'padding: 10px;'  onclick='comment(" +
+										temp.travelLogId +
+										")' > 发表 </button> <input id='" + temp.travelLogId +
+										"Input' type = 'text' class = 'mui-col-sm-9 mui-col-xs-9' placeholder = '发表你的评论' style = 'padding-left: 5px; padding-right: 20px;'></div> </form></div></div></a></li>";
+								}
+								document.getElementById("ulTag").innerHTML = result;
+								plus.nativeUI.closeWaiting();
+							} else {
+								plus.nativeUI.closeWaiting();
+								plus.nativeUI.toast(data.describe + "。");
+								return;
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							plus.nativeUI.closeWaiting();
+							plus.nativeUI.toast("status：" + xhr.status + "；readyState：" + xhr.readyState + "；type：" + type +
+								"；errorThrown：" +
+								errorThrown);
+							return;
+						}
+					});
+				} else {
+					plus.nativeUI.closeWaiting();
+					plus.nativeUI.toast('当前网络不给力，请稍后再试');
+					return;
+				}
+			}, 600);
+		}
+
+		mui.plusReady(function() {
+			getTravelLogs({
+				travelLogId: "",
+				travelLogUser: "",
+				travelLogTime: "",
+				travelLogImg: "",
+				travelLogTxt: "",
+				travelLogPraise: ""
+			});
+		});
+
+		mui.ready(function() {
+			var list = document.getElementById('list');
+			//calc hieght
+			list.style.height = (document.body.offsetHeight) + 'px';
+			//create
+			window.indexedList = new mui.IndexedList(list);
+		});
+
+		/**
+		 * 是否已关注
+		 */
+		function isAttention(userId) {
+			var users = JSON.parse(localStorage.getItem('$users') || '[]');
+			if (users.length > 0) {
+				if (userId === users[0].userId) {
+					return "已关注";
+				}
+				var attentions = users[0].attentions;
+				for (var i = 0; i < attentions.length; i++) {
+					if (userId === attentions[i].attentionUser || userId === attentions[i].userSelf) {
+						return "已关注";
+					}
+				}
+			}
+			return "关注";
+		}
+
+		/**
+		 * 关注开关
+		 */
+		function attentionToggle(travelLogId, attentionUser) {
+			var users = JSON.parse(localStorage.getItem('$users') || '[]');
+			if (users.length > 0) {
+				if (attentionUser === users[0].userId) {
+					plus.nativeUI.toast("这是你自己哦。不可以取关自己。");
+					return;
+				}
+				var travelLogIdAttention = document.getElementById(travelLogId + "Attention");
+				var attentionToggle = travelLogIdAttention.innerHTML;
+				var network = true;
+				if (mui.os.plus) {
+					mui.plusReady(function() {
+						if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+							network = false;
+						}
+					});
+				}
+				var urlSuffix = "";
+				var result = "";
+				var attentions = users[0].attentions;
+				if (attentionToggle.indexOf("已") < 0) { //-1：没找到.点击关注
+					urlSuffix = 'attention/insert';
+					result = "已关注";
+					attentions.push({
+						attentionId: 0,
+						userSelf: users[0].userId, // 用户自己
+						attentionUser: attentionUser // 关注的用户
+					})
+				} else { //取消关注
+					urlSuffix = 'attention/delete';
+					result = "关注";
+					for (var i = (attentions.length - 1); i >= 0; i--) {
+						if (attentionUser === attentions[i].attentionUser) {
+							attentions.splice(i, 1);
+						}
+					}
+				}
+				if (network) {
+					mui.ajax(urlPre + urlSuffix, {
+						data: {
+							userSelf: users[0].userId,
+							attentionUser: attentionUser
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (data.success) {
+								travelLogIdAttention.innerHTML = result;
+								localStorage.setItem('$users', JSON.stringify(users));
+								return;
+							} else {
+								plus.nativeUI.toast(data.describe + "。");
+								return;
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							plus.nativeUI.toast("status：" + xhr.status + "；readyState：" + xhr.readyState + "；type：" + type +
+								"；errorThrown：" +
+								errorThrown);
+							return;
+						}
+					});
+				} else {
+					plus.nativeUI.toast('当前网络不给力，请稍后再试');
+					return;
+				}
+			}
+		}
+
+		/**
+		 * 点赞
+		 */
+		function travelLogPraise(travelLogId) {
+			var travelLogIdPraise = document.getElementById(travelLogId + "Praise");
+			var travelLogPraise = travelLogIdPraise.innerHTML;
+			travelLogPraise = travelLogPraise.substring(travelLogPraise.indexOf("（") + 1, travelLogPraise.indexOf("）"));
+
+			var network = true;
+			if (mui.os.plus) {
+				mui.plusReady(function() {
+					if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+						network = false;
+					}
+				});
+			}
+			if (network) {
+				mui.ajax(urlPre + 'travelLog/praise', {
+					data: {
+						travelLogId: travelLogId
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if (data.success) {
+							travelLogIdPraise.innerHTML = "赞（" + (parseInt(travelLogPraise) + 1) + "）";
+							return;
+						} else {
+							plus.nativeUI.toast(data.describe + "。");
+							return;
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						plus.nativeUI.toast("status：" + xhr.status + "；readyState：" + xhr.readyState + "；type：" + type +
+							"；errorThrown：" +
+							errorThrown);
+						return;
+					}
+				});
+			} else {
+				plus.nativeUI.toast('当前网络不给力，请稍后再试');
+				return;
+			}
+		}
+
+		/**
+		 * 评论
+		 */
+		function comment(travelLogId) {
+			var users = JSON.parse(localStorage.getItem('$users') || '[]');
+			if (users.length > 0) {
+				var travelLogIdCommentBox = document.getElementById(travelLogId + "Comment"); //评论(1)
+				var travelLogIdComment = travelLogIdCommentBox.innerHTML;
+				travelLogIdComment = travelLogIdComment.substring(travelLogIdComment.indexOf("（") + 1, travelLogIdComment.indexOf(
+					"）")); //评论(1)
+
+				var travelLogIdCommentsBox = document.getElementById(travelLogId + "Comments");
+				var travelLogIdInputBox = document.getElementById(travelLogId + "Input");
+				var travelLogIdComments = travelLogIdCommentsBox.innerHTML;
+				var travelLogIdInput = travelLogIdInputBox.value || "";
+				if (travelLogIdInput.length < 1) {
+					plus.nativeUI.toast("评论内容不能为空");
+					return;
+				}
+				var network = true;
+				if (mui.os.plus) {
+					mui.plusReady(function() {
+						if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+							network = false;
+						}
+					});
+				}
+				if (network) {
+					mui.ajax(urlPre + 'comment/insert', {
+						data: {
+							commentUser: users[0].userId,
+							commentTxt: travelLogIdInput,
+							commentsTravelLog: travelLogId
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if (data.success) {
+								travelLogIdComments +=
+									"<div class = 'mui-card-header mui-card-media'><img  onerror=src='images/zff.jpg' src = '" +
+									urlPre + users[0].userPortrait +
+									"'/><div class = 'mui-media-body'><div class = 'mui-row'><span class = 'mui-col-sm-6 mui-col-xs-6' style = 'color: #0062CC;'>" +
+									users[0].userName +
+									"</span> <span class = 'mui-col-sm-6 mui-col-xs-6' style = 'color:lightgray; text-align:right;'>" +
+									formatTime(new Date()) +
+									"</span></div><p style = 'color: #333;' >" + travelLogIdInput + "</p></div></div>";
+								travelLogIdCommentsBox.innerHTML = travelLogIdComments;
+								travelLogIdCommentBox.innerHTML = "评论（" + (parseInt(travelLogIdComment) + 1) + "）";
+								return;
+							} else {
+								plus.nativeUI.toast(data.describe + "。");
+								return;
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							plus.nativeUI.toast("status：" + xhr.status + "；readyState：" + xhr.readyState + "；type：" + type +
+								"；errorThrown：" +
+								errorThrown);
+							return;
+						}
+					});
+				} else {
+					plus.nativeUI.toast('当前网络不给力，请稍后再试');
+					return;
+				}
+			}
+		}
+
+		/**
+		 * 用户信息的弹出菜单
+		 */
+		function userInfoPopover(obj) {
+			document.getElementById("headInfo").src = urlPre + obj.user.userPortrait;
+			document.getElementById("nameInfo").innerHTML = "姓名：" + obj.user.userName + "<p>" + "账号：" + obj.user.userAccount +
+				"</p>";
+			// document.getElementById("accountInfo").innerHTML = "账号：" + obj.user.userAccount;
+			document.getElementById("qqInfo").innerHTML = obj.user.userQQ;
+			document.getElementById("phoneInfo").innerHTML = obj.user.userPhone;
+			document.getElementById("emailInfo").innerHTML = obj.user.userEmail;
+			document.getElementById("confidanteInfo").innerHTML = obj.user.userConfidante;
+			if (obj.travelLogId) {
+				mui('.mui-popover').popover("toggle", document.getElementById(obj.travelLogId + obj.user.userPortrait));
+			} else {
+				mui('.mui-popover').popover("toggle", document.getElementById(obj.commentId + obj.user.userPortrait));
+			}
+		}
+	</script>
+</html>

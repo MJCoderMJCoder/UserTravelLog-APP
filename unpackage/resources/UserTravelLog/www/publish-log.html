@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-content">
+					<img id="logImg" src="images/zff.jpg" alt="" width="100%" onerror=src='images/zff.jpg' />
+					<div class="mui-card-content-inner">
+						<form class="mui-input-group">
+							<textarea id='logText' class="mui-input-clear question" placeholder="发表旅游日志" style="height: 80%;"></textarea>
+						</form>
+					</div>
+				</div>
+				<div class="mui-content-padded">
+					<button id='publishLog' class="mui-btn mui-btn-block mui-btn-primary" style="padding: 10px;">发表</button>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			const urlPre = "http://192.168.17.251:8080/UserTravelLog/";
+			mui.init({
+				swipeBack: false, //关闭右滑关闭功能
+				//监听Android手机的back、menu按键
+				keyEventBind: {
+					backbutton: false, //Boolean(默认true)关闭back按键监听
+				}
+			})
+			//更换图片
+			mui(".mui-card-content").on("tap", "#logImg", function(e) {
+				if (mui.os.plus) {
+					var a = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "修改头像",
+						cancel: "取消",
+						buttons: a
+					}, function(b) {
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage();
+								break;
+							case 2:
+								galleryImg();
+								break;
+							default:
+								break
+						}
+					})
+				}
+			});
+
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+						console.log(s);
+						document.getElementById("logImg").src = s;
+						//变更大图预览的src
+						//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
+						// document.querySelector("#__mui-imageview__group .mui-slider-item img").src = s + "?version=" + new Date().getTime();;;
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s);
+				}, {
+					filename: "_doc/logImg.jpg"
+				})
+			}
+
+			function galleryImg() {
+				plus.gallery.pick(function(a) {
+					plus.io.resolveLocalFileSystemURL(a, function(entry) {
+						plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+							root.getFile("logImg.jpg", {}, function(file) {
+								//文件已存在
+								file.remove(function() {
+									console.log("file remove success");
+									entry.copyTo(root, 'logImg.jpg', function(e) {
+											var e = e.fullPath + "?version=" + new Date().getTime();
+											document.getElementById("logImg").src = e;
+											//变更大图预览的src
+											//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
+											// 											document.querySelector("#__mui-imageview__group .mui-slider-item img").src = e + "?version=" +
+											// 												new Date()
+											// 												.getTime();
+										},
+										function(e) {
+											console.log('copy image fail:' + e.message);
+										});
+								}, function() {
+									console.log("delete image fail:" + e.message);
+								});
+							}, function() {
+								//文件不存在
+								entry.copyTo(root, 'logImg.jpg', function(e) {
+										var path = e.fullPath + "?version=" + new Date().getTime();
+										document.getElementById("logImg").src = path;
+										//变更大图预览的src
+										//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
+										// document.querySelector("#__mui-imageview__group .mui-slider-item img").src = path;
+									},
+									function(e) {
+										console.log('copy image fail:' + e.message);
+									});
+							});
+						}, function(e) {
+							console.log("get _www folder fail");
+						})
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(a) {}, {
+					filter: "image"
+				})
+			};
+
+			mui(".mui-content-padded").on("tap", "#publishLog", function(e) {
+				createUpload(document.getElementById("logImg"))
+			});
+
+			// 上传的方法
+			function createUpload(files) {
+				var users = JSON.parse(localStorage.getItem('$users') || '[]');
+				if (users.length > 0) {
+					var travelLogTxt = document.getElementById("logText").value || "";
+					if (travelLogTxt.length < 10) {
+						plus.nativeUI.toast('旅游日志最短为 10 个字符');
+						return;
+					}
+					var network = true;
+					if (mui.os.plus) {
+						mui.plusReady(function() {
+							if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+								network = false;
+							}
+						});
+					}
+					if (network) {
+						var task = plus.uploader.createUpload(urlPre + "travelLog/insert", {
+							method: "POST"
+						}, function(t, status) { //上传完成 
+							if (status == 200) {
+								var obj = JSON.parse(t.responseText)
+								plus.nativeUI.toast(obj.describe + "。");
+								return;
+							} else {
+								plus.nativeUI.toast('旅游日志发布失败：' + status);
+								return;
+							}
+						});
+						console.log(files.src);
+						// 页面中要上传的 图片路径
+						task.addFile(files.src, {
+							key: "travelLogImg"
+						});
+						//添加其他参数
+						task.addData("travelLogUser", users[0].userId + "");
+						task.addData("travelLogTxt", travelLogTxt + "");
+						task.start();
+					} else {
+						plus.nativeUI.toast('当前网络不给力，请稍后再试');
+						return;
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>主页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<style>
+			html body, .mui-segmented-control{
+				background: white;
+				border-radius: 0;
+				margin: 0;
+			}
+			.mui-content .mui-slider {
+				height: auto;
+			},
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<!-- <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				 -->
+				<div id="sliderSegmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1mobile" data-wid="user-set.html">
+						用户设置
+					</a>
+					<a class="mui-control-item" href="#item2mobile" data-wid="travel-log.html">
+						旅游日志
+					</a>
+					<a class="mui-control-item" href="#item2mobile" data-wid="publish-log.html">
+						发表日志
+					</a>
+				</div>
+			</div>
+		</div>
+		<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				var _self = plus.webview.currentWebview();
+				var group = new webviewGroup(_self.id, {
+					items: [{
+							id: "user-set.html",
+							url: "user-set.html",
+							extras: {}
+						},
+						{
+							id: "travel-log.html",
+							url: "travel-log.html",
+							extras: {}
+						},
+						{
+							id: "publish-log.html",
+							url: "publish-log.html",
+							extras: {}
+						}
+					],
+					onChange: function(obj) {
+						var c = document.querySelector(".mui-control-item.mui-active");
+						if (c) {
+							c.classList.remove("mui-active");
+						}
+						var target = document.querySelector("#sliderSegmentedControl .mui-control-item:nth-child(" + (parseInt(obj.index) +
+								1) +
+							")");
+						target.classList.add("mui-active");
+						if (target.scrollIntoView) {
+							target.scrollIntoView();
+						}
+					}
+				});
+				mui("#sliderSegmentedControl").on("tap", ".mui-control-item", function(e) {
+					var wid = this.getAttribute("data-wid");
+					group.switchTab(wid);
+				});
+			});
+		</script>
+	</body>
+</html>
